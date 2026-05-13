@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Baixar código
+      - name: Checkout código
         uses: actions/checkout@v3
 
       - name: Instalar Java 17
@@ -18,11 +18,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Dar permissão ao Maven Wrapper
-        run: chmod +x mvnw
-
-      - name: Build + Testes
-        run: ./mvnw clean package
+      - name: Build + Testes (Maven)
+        run: mvn clean package
 
       - name: Login DockerHub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
